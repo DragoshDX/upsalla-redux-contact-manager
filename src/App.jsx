@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+const baseUrl = import.meta.env.VITE_SERVER_URI;
+
 function App() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/profile')
+      .get(`${baseUrl}/profile`)
       .then((response) => {
         const { data } = response;
 
@@ -21,6 +23,11 @@ function App() {
         }
       });
   }, []);
+
+  if (message.trim().length > 0) {
+    return <div>{message}</div>;
+  }
+
   return (
     <h1 className="text-3xl font-bold underline">
       {name.trim().length <= 0 ? '...loading' : name}
