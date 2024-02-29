@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 import store from './../store';
-import { setUser } from '../store/actions/auth';
+import { createUser, readUser, setUser } from '../store/actions/auth';
 
 let initialized = false;
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -35,6 +35,16 @@ export const initializeGoogleAuth = async () => {
               name,
             }),
           );
+
+          store
+            .dispatch(readUser(id))
+            .then((user) => {
+              console.log(user);
+            })
+            .catch(() => {
+              // user doesn't exit
+              store.dispatch(createUser({ id, avatar }));
+            });
         },
         scope: 'email profile',
       });
