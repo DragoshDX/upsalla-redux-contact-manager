@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Button } from '../ui';
-import { createContact } from '../../store/actions/contacts';
+import { createContact, updateContact } from '../../store/actions/contacts';
 import { useNavigate } from 'react-router-dom';
 
 export const ContactForm = ({ contact = {}, edit = false }) => {
@@ -25,7 +25,7 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
       contact.id = contactId;
     }
 
-    await dispatch(createContact(contact));
+    await dispatch(edit ? updateContact(contact) : createContact(contact));
 
     navigate('/contacts');
   };
