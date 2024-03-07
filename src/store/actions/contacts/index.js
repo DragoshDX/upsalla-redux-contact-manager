@@ -37,6 +37,16 @@ export const readContacts = () => {
 };
 
 // PATCH /contact/id
+export const updateContact = (contact) => {
+  return async (dispatch) => {
+    const { data } = await contactsClient.patch(
+      `/contacts/${contact.id}`,
+      contact,
+    );
+
+    dispatch(setContact(data));
+  };
+};
 
 // DELETE /contact/id
 

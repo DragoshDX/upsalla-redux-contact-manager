@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const ContactForm = ({ contact = {}, edit = false }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id: contactId } = contact;
   const onSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -19,6 +20,10 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
       phone: phone.value,
       email: email.value,
     };
+
+    if (edit) {
+      contact.id = contactId;
+    }
 
     await dispatch(createContact(contact));
 
@@ -37,6 +42,7 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
           name="name"
           id="name"
           className="border border-slate-300 rounded px-2 grow"
+          defaultValue={edit ? contact.name : false}
           required
         ></input>
       </div>
@@ -51,6 +57,7 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
           name="surname"
           id="surname"
           className="border border-slate-300 rounded px-2 grow"
+          defaultValue={edit ? contact.surname : false}
           required
         ></input>
       </div>
@@ -65,6 +72,7 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
           name="phone"
           id="phone"
           className="border border-slate-300 rounded px-2 grow"
+          defaultValue={edit ? contact.phone : false}
           required
         ></input>
       </div>
@@ -79,13 +87,14 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
           name="email"
           id="email"
           className="border border-slate-300 rounded px-2 grow"
+          defaultValue={edit ? contact.email : false}
           required
         ></input>
       </div>
 
       <footer className="text-center">
         <Button skin="primary" title="Save" type="submit">
-          Submit
+          {edit ? 'Update' : 'Submit'}
         </Button>
       </footer>
     </form>

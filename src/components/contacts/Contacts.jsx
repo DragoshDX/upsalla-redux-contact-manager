@@ -25,7 +25,7 @@ export const Contacts = () => {
             {name}
 
             <Button skin="primary" element="span">
-              <Link to={`/contacts/edit/${id}`} title="Edit">
+              <Link to={`/contacts/${id}/edit`} title="Edit">
                 Edit
               </Link>
             </Button>
