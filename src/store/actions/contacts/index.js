@@ -12,13 +12,29 @@ export const createContact = (contact) => {
 
     const { data } = await contactsClient.post('/contacts', contact);
 
+    dispatch(setContact(data));
+
     return data;
   };
 };
 
-// GET /contact/id
+//opational:// GET /contact/id
 
 // GET /contacts
+export const readContacts = () => {
+  return async (dispatch, getState) => {
+    const { auth } = getState();
+    const userId = auth?.user?.id;
+
+    const { data: users } = await contactsClient.get('/contacts', {
+      params: {
+        userId,
+      },
+    });
+
+    dispatch(setContacts(users));
+  };
+};
 
 // PATCH /contact/id
 
@@ -28,5 +44,12 @@ export const setContact = (contact) => {
   return {
     type: 'contacts/set',
     payload: contact,
+  };
+};
+
+export const setContacts = (contacts) => {
+  return {
+    type: 'contacts/setMultiple',
+    payload: contacts,
   };
 };

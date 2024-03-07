@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { Button } from '../ui';
 import { createContact } from '../../store/actions/contacts';
+import { useNavigate } from 'react-router-dom';
 
 export const ContactForm = ({ contact = {}, edit = false }) => {
   const dispatch = useDispatch();
-  const onSubmit = (event) => {
+  const navigate = useNavigate();
+  const onSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
 
@@ -18,7 +20,9 @@ export const ContactForm = ({ contact = {}, edit = false }) => {
       email: email.value,
     };
 
-    dispatch(createContact(contact));
+    await dispatch(createContact(contact));
+
+    navigate('/contacts');
   };
 
   return (
