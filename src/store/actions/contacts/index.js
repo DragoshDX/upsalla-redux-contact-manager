@@ -16,6 +16,14 @@ export const createContact = (contact) => {
   };
 };
 
+// GET /contact/id
+
+// GET /contacts
+
+// PATCH /contact/id
+
+// DELETE /contact/id
+
 export const setContact = (contact) => {
   return {
     type: 'contacts/set',
