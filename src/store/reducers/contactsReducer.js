@@ -23,6 +23,15 @@ export const contactsReducer = (state = initialState, action) => {
           [payload.id]: payload,
         },
       };
+    case 'contacts/setMultiple':
+      return {
+        ...state,
+        entities: (payload || []).reduce((entities, contact) => {
+          entities[contact.id] = contact;
+
+          return entities;
+        }, {}),
+      };
     default:
       return state;
   }
