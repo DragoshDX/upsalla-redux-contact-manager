@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { readContacts } from '../../store/actions/contacts';
+import { deleteContact, readContacts } from '../../store/actions/contacts';
 import { Button } from '../ui';
 import { Link } from 'react-router-dom';
 
@@ -29,7 +29,13 @@ export const Contacts = () => {
                 Edit
               </Link>
             </Button>
-            <Button skin="danger" title="Delete">
+            <Button
+              skin="danger"
+              title="Delete"
+              onClick={() => {
+                dispatch(deleteContact(id));
+              }}
+            >
               Delete
             </Button>
           </li>

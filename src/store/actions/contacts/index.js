@@ -49,6 +49,13 @@ export const updateContact = (contact) => {
 };
 
 // DELETE /contact/id
+export const deleteContact = (contactId) => {
+  return async (dispatch) => {
+    const { data } = await contactsClient.delete(`/contacts/${contactId}`);
+
+    dispatch(unsetContact(contactId));
+  };
+};
 
 export const setContact = (contact) => {
   return {
@@ -61,5 +68,12 @@ export const setContacts = (contacts) => {
   return {
     type: 'contacts/setMultiple',
     payload: contacts,
+  };
+};
+
+export const unsetContact = (contactId) => {
+  return {
+    type: 'contacts/unset',
+    payload: contactId,
   };
 };

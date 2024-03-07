@@ -13,6 +13,7 @@ const initialState = {
 
 export const contactsReducer = (state = initialState, action) => {
   const { type, payload } = action;
+  const { [payload]: _, ...entities } = state.entities;
 
   switch (type) {
     case 'contacts/set':
@@ -31,6 +32,11 @@ export const contactsReducer = (state = initialState, action) => {
 
           return entities;
         }, {}),
+      };
+    case 'contacts/unset':
+      return {
+        ...state,
+        entities,
       };
     default:
       return state;
